@@ -1,5 +1,7 @@
 # Todo List App - Project Summary 🎉
 
+> 📖 **[← Back to Main README](../README.md)** | **[View PRD](prd.md)** | **[View Tasks](tasks.md)**
+
 ## Project Overview
 Successfully created a modern, feature-complete todo list application using the Claude Master and Commander methodology. The project demonstrates structured development from PRD to implementation.
 

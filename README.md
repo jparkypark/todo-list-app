@@ -2,6 +2,26 @@
 
 A modern, intuitive todo list application built with vanilla JavaScript. This project follows a structured development approach using Claude Master and Commander methodology.
 
+## 🚀 Project Status
+
+**Overall Progress:** 75% Complete
+
+```
+████████████████████████████████████████████████████████████████████████████████░░░░░░░░ 75%
+```
+
+**✅ Phases 1-3 Complete:** All core functionality implemented  
+**🔲 Phase 4 Remaining:** Testing and deployment
+
+📋 **[View Complete Product Requirements Document (PRD)](docs/prd.md)**
+
+## 🔗 Quick Navigation
+
+- 🚀 **[Live Demo](#quick-start)** - Try the app locally
+- 📋 **[PRD](docs/prd.md)** - Product requirements and progress
+- ⚙️ **[Tasks](docs/tasks.md)** - Development task breakdown  
+- 📊 **[Summary](docs/project-summary.md)** - Project overview and stats
+
 ## Features
 
 - ✅ Add, edit, and delete tasks
@@ -53,7 +73,12 @@ This project was built following the Claude Master and Commander methodology:
 3. **🏗️ Structured Development**: Phase-based implementation
 4. **📊 Progress Tracking**: Visual task management
 
-See `/docs/prd.md` and `/docs/tasks.md` for detailed planning documentation.
+### 📚 Project Documentation
+
+- **📋 [Product Requirements Document (PRD)](docs/prd.md)** - Complete feature specifications and requirements
+- **⚙️ [Task Breakdown](docs/tasks.md)** - Detailed development tasks with completion status
+- **📊 [Project Summary](docs/project-summary.md)** - Comprehensive overview and development statistics
+- **🛠️ [Scripts Documentation](scripts/README.md)** - Development workflow and utility scripts
 
 ## Contributing
 

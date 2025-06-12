@@ -1,5 +1,7 @@
 # Task Breakdown - Todo List App
 
+> 📖 **[← Back to Main README](../README.md)** | **[View PRD](prd.md)** | **[Project Summary](project-summary.md)**
+
 *Generated from PRD analysis - Todo List App*
 
 ## 🎉 PROJECT STATUS: PHASE 1-2 COMPLETED! 
