@@ -72,7 +72,7 @@ class TodoApp {
         this.bindEvents();
         this.render();
     }
-}
+    
     /**
      * Bind event listeners
      */
