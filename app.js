@@ -11,8 +11,9 @@
  * - Full keyboard accessibility
  * 
  * @author Josh Parks
- * @version 1.0.0
+ * @version 1.0.1
  * @license MIT
+ * @updated 2025-06-12 - Fixed syntax error for GitHub Pages deployment
  */
 
 class TodoApp {
