@@ -26,7 +26,7 @@ class TodoApp {
         this.currentFilter = 'all';         // Current filter: 'all', 'active', or 'completed'
         this.nextId = 1;                    // Auto-incrementing ID for new todos
         
-        // DOM element references
+        // DOM element references with error checking
         this.todoInput = document.getElementById('todo-input');
         this.addBtn = document.getElementById('add-btn');
         this.todoList = document.getElementById('todo-list');
@@ -39,6 +39,26 @@ class TodoApp {
             completed: document.getElementById('filter-completed')
         };
         this.clearCompletedBtn = document.getElementById('clear-completed');
+        
+        // Check if all required elements are found
+        const requiredElements = [
+            this.todoInput, this.addBtn, this.todoList, this.todoFooter,
+            this.activeCount, this.itemText, this.clearCompletedBtn
+        ];
+        
+        const missingElements = requiredElements.filter(el => !el);
+        if (missingElements.length > 0) {
+            console.error('TodoApp: Missing required DOM elements:', missingElements);
+            return;
+        }
+        
+        // Check filter buttons
+        Object.keys(this.filterBtns).forEach(key => {
+            if (!this.filterBtns[key]) {
+                console.error(`TodoApp: Missing filter button: ${key}`);
+                return;
+            }
+        });
         
         // Initialize the app
         this.init();
@@ -57,10 +77,18 @@ class TodoApp {
      * Bind event listeners
      */
     bindEvents() {
+        console.log('TodoApp: Binding events...');
+        
         // Add task events
-        this.addBtn.addEventListener('click', () => this.addTodo());
+        this.addBtn.addEventListener('click', () => {
+            console.log('TodoApp: Add button clicked');
+            this.addTodo();
+        });
+        
         this.todoInput.addEventListener('keypress', (e) => {
+            console.log('TodoApp: Key pressed:', e.key);
             if (e.key === 'Enter') {
+                console.log('TodoApp: Enter key - adding todo');
                 this.addTodo();
             }
         });
@@ -123,8 +151,14 @@ class TodoApp {
      * Add a new todo
      */
     addTodo() {
+        console.log('TodoApp: addTodo called');
         const text = this.todoInput.value.trim();
-        if (!text) return;
+        console.log('TodoApp: Input text:', text);
+        
+        if (!text) {
+            console.log('TodoApp: Empty text, returning');
+            return;
+        }
         
         const todo = {
             id: this.nextId++,
@@ -133,10 +167,13 @@ class TodoApp {
             createdAt: new Date().toISOString()
         };
         
+        console.log('TodoApp: Adding todo:', todo);
         this.todos.push(todo);
         this.todoInput.value = '';
         this.saveTodos();
         this.render();
+        
+        console.log('TodoApp: Todo added, total todos:', this.todos.length);
         
         // Add slide-in animation
         setTimeout(() => {

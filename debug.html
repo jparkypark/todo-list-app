@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List App - Debug</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">todo</h1>
+            <div class="input-container">
+                <input 
+                    type="text" 
+                    id="todo-input" 
+                    class="todo-input" 
+                    placeholder="What needs to be done?" 
+                    autocomplete="off"
+                >
+                <button id="add-btn" class="add-btn">Add</button>
+            </div>
+        </header>
+
+        <main class="main">
+            <section class="todoapp">
+                <ul id="todo-list" class="todo-list">
+                    <!-- Tasks will be dynamically inserted here -->
+                </ul>
+                
+                <footer id="todo-footer" class="footer" style="display: none;">
+                    <span class="todo-count">
+                        <strong id="active-count">0</strong> 
+                        <span id="item-text">items</span> left
+                    </span>
+                    
+                    <div class="filters">
+                        <button id="filter-all" class="filter-btn active">All</button>
+                        <button id="filter-active" class="filter-btn">Active</button>
+                        <button id="filter-completed" class="filter-btn">Completed</button>
+                    </div>
+                    
+                    <button id="clear-completed" class="clear-completed" style="display: none;">
+                        Clear completed
+                    </button>
+                </footer>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Debug version with console logging
+        console.log('Script loading...');
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded');
+            
+            // Check if elements exist
+            const todoInput = document.getElementById('todo-input');
+            const addBtn = document.getElementById('add-btn');
+            const todoList = document.getElementById('todo-list');
+            
+            console.log('todoInput:', todoInput);
+            console.log('addBtn:', addBtn);
+            console.log('todoList:', todoList);
+            
+            if (!todoInput || !addBtn || !todoList) {
+                console.error('Missing required DOM elements!');
+                return;
+            }
+            
+            // Simple test functionality
+            let todos = [];
+            let nextId = 1;
+            
+            function addTodo() {
+                console.log('addTodo called');
+                const text = todoInput.value.trim();
+                console.log('Input text:', text);
+                
+                if (!text) {
+                    console.log('Empty text, returning');
+                    return;
+                }
+                
+                const todo = {
+                    id: nextId++,
+                    text: text,
+                    completed: false
+                };
+                
+                todos.push(todo);
+                console.log('Added todo:', todo);
+                console.log('All todos:', todos);
+                
+                todoInput.value = '';
+                renderTodos();
+            }
+            
+            function renderTodos() {
+                console.log('renderTodos called');
+                todoList.innerHTML = '';
+                
+                todos.forEach(todo => {
+                    const li = document.createElement('li');
+                    li.className = 'todo-item';
+                    li.innerHTML = `
+                        <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''}>
+                        <span class="todo-text">${todo.text}</span>
+                        <button class="delete-btn">×</button>
+                    `;
+                    todoList.appendChild(li);
+                });
+                
+                console.log('Rendered', todos.length, 'todos');
+            }
+            
+            // Bind events
+            addBtn.addEventListener('click', () => {
+                console.log('Add button clicked');
+                addTodo();
+            });
+            
+            todoInput.addEventListener('keypress', (e) => {
+                console.log('Key pressed:', e.key);
+                if (e.key === 'Enter') {
+                    console.log('Enter key pressed');
+                    addTodo();
+                }
+            });
+            
+            console.log('Event listeners bound');
+            
+            // Initial render
+            renderTodos();
+        });
+    </script>
+</body>
+</html>
