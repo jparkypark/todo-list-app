@@ -2,6 +2,12 @@
 
 A modern, intuitive todo list application built with vanilla JavaScript. This project follows a structured development approach using Claude Master and Commander methodology.
 
+## 🌐 Live Demo
+
+**✨ [Try the App Live](https://jparkypark.github.io/todo-list-app/) ✨**
+
+🔗 **GitHub Pages URL:** https://jparkypark.github.io/todo-list-app/
+
 ## 🚀 Project Status
 
 **Overall Progress:** 100% Complete - Production Ready! ✅
@@ -17,12 +23,15 @@ A modern, intuitive todo list application built with vanilla JavaScript. This pr
 
 ## 🔗 Quick Navigation
 
-- 🚀 **[Live Demo](#quick-start)** - Try the app locally
+- 🌐 **[Live Demo](https://jparkypark.github.io/todo-list-app/)** - Try the app online
+- 🚀 **[Local Setup](#quick-start)** - Run locally for development
 - 📋 **[PRD](docs/prd.md)** - Product requirements and progress
 - ⚙️ **[Tasks](docs/tasks.md)** - Development task breakdown  
 - 📊 **[Summary](docs/project-summary.md)** - Project overview and stats
 
 ## Features
+
+### 🎯 **[Try All Features Live](https://jparkypark.github.io/todo-list-app/)**
 
 - ✅ Add, edit, and delete tasks
 - ✅ Mark tasks as complete/incomplete  
@@ -31,6 +40,8 @@ A modern, intuitive todo list application built with vanilla JavaScript. This pr
 - ✅ Persistent storage (localStorage)
 - ✅ Responsive design for mobile and desktop
 - ✅ Clean, minimal interface
+- ✅ Keyboard accessibility (Enter, Escape, Tab)
+- ✅ Smooth animations and transitions
 
 ## Tech Stack
 
@@ -124,15 +135,16 @@ npx live-server --port=3001
 ### GitHub Pages Deployment
 The app is configured for easy GitHub Pages deployment:
 
-1. **Enable GitHub Pages:**
-   - Go to repository Settings → Pages
-   - Set source to "Deploy from a branch"
-   - Select `main` branch and `/ (root)` folder
-   - Click Save
-
-2. **Access Live App:**
-   - Your app will be available at: `https://jparkypark.github.io/todo-list-app/`
+1. **Live App Available:**
+   - **🌐 https://jparkypark.github.io/todo-list-app/**
    - Updates automatically when you push to main branch
+   - Full functionality with persistent storage
+
+2. **Setup Process (Already Complete):**
+   - ✅ Repository Settings → Pages configured
+   - ✅ Source set to "Deploy from a branch" 
+   - ✅ Main branch and `/ (root)` folder selected
+   - ✅ App deployed and accessible worldwide
 
 ### Alternative Hosting
 The app can be deployed to any static hosting service:
