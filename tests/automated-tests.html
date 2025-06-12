@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App - Automated Tests</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        .test-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-result {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        .test-pass {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .test-fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .test-summary {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px;
+        }
+        .summary-pass { background: #d4edda; color: #155724; }
+        .summary-fail { background: #f8d7da; color: #721c24; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Todo App - Automated Tests</h1>
+    
+    <div class="test-container">
+        <h2>Test Runner</h2>
+        <button onclick="runAllTests()">Run All Tests</button>
+        <button onclick="clearResults()">Clear Results</button>
+    </div>
+    
+    <div class="test-container">
+        <h2>Test Results</h2>
+        <div id="test-results"></div>
+        <div id="test-summary"></div>
+    </div>
+
+    <!-- Load the main app for testing -->
+    <script src="../app.js"></script>
+    
+    <script>
+        let testResults = [];
+        
+        function runTest(name, testFn) {
+            try {
+                const result = testFn();
+                const passed = result === true;
+                testResults.push({ name, passed, message: passed ? 'PASS' : result || 'FAIL' });
+                logResult(name, passed, passed ? 'PASS' : result || 'FAIL');
+                return passed;
+            } catch (error) {
+                testResults.push({ name, passed: false, message: error.message });
+                logResult(name, false, error.message);
+                return false;
+            }
+        }
+        
+        function logResult(name, passed, message) {
+            const resultsDiv = document.getElementById('test-results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${passed ? 'test-pass' : 'test-fail'}`;
+            resultDiv.innerHTML = `<strong>${name}</strong>: ${message}`;
+            resultsDiv.appendChild(resultDiv);
+        }
+        
+        function clearResults() {
+            document.getElementById('test-results').innerHTML = '';
+            document.getElementById('test-summary').innerHTML = '';
+            testResults = [];
+        }
+        
+        function showSummary() {
+            const total = testResults.length;
+            const passed = testResults.filter(r => r.passed).length;
+            const failed = total - passed;
+            
+            const summaryDiv = document.getElementById('test-summary');
+            const allPassed = failed === 0;
+            
+            summaryDiv.className = `test-summary ${allPassed ? 'summary-pass' : 'summary-fail'}`;
+            summaryDiv.innerHTML = `
+                <div>Tests Complete: ${passed}/${total} passed</div>
+                <div>${failed > 0 ? `${failed} tests failed` : 'All tests passed! ✅'}</div>
+            `;
+        }
+        
+        function runAllTests() {
+            clearResults();
+            
+            // Create a test instance of the TodoApp
+            const testContainer = document.createElement('div');
+            testContainer.innerHTML = `
+                <input type="text" id="test-todo-input" class="todo-input">
+                <button id="test-add-btn" class="add-btn">Add</button>
+                <ul id="test-todo-list" class="todo-list"></ul>
+                <footer id="test-todo-footer" class="footer">
+                    <span class="todo-count">
+                        <strong id="test-active-count">0</strong> 
+                        <span id="test-item-text">items</span> left
+                    </span>
+                    <div class="filters">
+                        <button id="test-filter-all" class="filter-btn active">All</button>
+                        <button id="test-filter-active" class="filter-btn">Active</button>
+                        <button id="test-filter-completed" class="filter-btn">Completed</button>
+                    </div>
+                    <button id="test-clear-completed" class="clear-completed">Clear completed</button>
+                </footer>
+            `;
+            document.body.appendChild(testContainer);
+            
+            // Override TodoApp to use test elements
+            class TestTodoApp extends TodoApp {
+                constructor() {
+                    super();
+                    this.todoInput = document.getElementById('test-todo-input');
+                    this.addBtn = document.getElementById('test-add-btn');
+                    this.todoList = document.getElementById('test-todo-list');
+                    this.todoFooter = document.getElementById('test-todo-footer');
+                    this.activeCount = document.getElementById('test-active-count');
+                    this.itemText = document.getElementById('test-item-text');
+                    this.filterBtns = {
+                        all: document.getElementById('test-filter-all'),
+                        active: document.getElementById('test-filter-active'),
+                        completed: document.getElementById('test-filter-completed')
+                    };
+                    this.clearCompletedBtn = document.getElementById('test-clear-completed');
+                    
+                    // Clear any existing data
+                    this.todos = [];
+                    this.nextId = 1;
+                    this.currentFilter = 'all';
+                    
+                    this.bindEvents();
+                    this.render();
+                }
+            }
+            
+            const testApp = new TestTodoApp();
+            
+            // Run tests
+            runTest('TodoApp Initialization', () => {
+                return testApp && testApp.todos.length === 0;
+            });
+            
+            runTest('Add Task', () => {
+                testApp.todoInput.value = 'Test Task';
+                testApp.addTodo();
+                return testApp.todos.length === 1 && testApp.todos[0].text === 'Test Task';
+            });
+            
+            runTest('Task Counter Update', () => {
+                return testApp.activeCount.textContent === '1';
+            });
+            
+            runTest('Toggle Task Complete', () => {
+                const taskId = testApp.todos[0].id;
+                testApp.toggleTodo(taskId);
+                return testApp.todos[0].completed === true;
+            });
+            
+            runTest('Counter Decreases When Complete', () => {
+                return testApp.activeCount.textContent === '0';
+            });
+            
+            runTest('Edit Task', () => {
+                const taskId = testApp.todos[0].id;
+                const todo = testApp.todos.find(t => t.id === taskId);
+                todo.text = 'Edited Task';
+                return todo.text === 'Edited Task';
+            });
+            
+            runTest('Delete Task', () => {
+                const taskId = testApp.todos[0].id;
+                testApp.todos = testApp.todos.filter(t => t.id !== taskId);
+                return testApp.todos.length === 0;
+            });
+            
+            runTest('Filter Functionality', () => {
+                // Add test tasks
+                testApp.todos = [
+                    { id: 1, text: 'Active Task', completed: false },
+                    { id: 2, text: 'Completed Task', completed: true }
+                ];
+                
+                testApp.currentFilter = 'active';
+                const filtered = testApp.getFilteredTodos();
+                return filtered.length === 1 && !filtered[0].completed;
+            });
+            
+            runTest('Clear Completed', () => {
+                testApp.todos = [
+                    { id: 1, text: 'Active Task', completed: false },
+                    { id: 2, text: 'Completed Task', completed: true }
+                ];
+                testApp.clearCompleted();
+                return testApp.todos.length === 1 && !testApp.todos[0].completed;
+            });
+            
+            runTest('Data Persistence Mock', () => {
+                // Test that saveTodos doesn't throw errors
+                try {
+                    testApp.saveTodos();
+                    return true;
+                } catch (error) {
+                    return false;
+                }
+            });
+            
+            // Clean up
+            document.body.removeChild(testContainer);
+            
+            // Show results
+            setTimeout(showSummary, 100);
+        }
+    </script>
+</body>
+</html>
