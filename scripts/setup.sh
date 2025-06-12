@@ -7,9 +7,9 @@ echo "🔧 Setting up Todo List App for local development..."
 echo ""
 
 # Check if we're in the right directory
-if [[ ! -f "src/index.html" ]]; then
+if [[ ! -f "index.html" ]]; then
     echo "❌ Error: Please run this script from the project root directory"
-    echo "   Expected to find src/index.html"
+    echo "   Expected to find index.html"
     exit 1
 fi
 

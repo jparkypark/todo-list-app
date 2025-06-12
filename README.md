@@ -56,7 +56,7 @@ cd todo-list-app
 ```bash
 # Clone and navigate to project
 git clone <your-repo-url>
-cd todo-list-app/src
+cd todo-list-app
 
 # Option A: Using npx (Node.js required)
 npx live-server --port=3000
@@ -119,6 +119,27 @@ npx live-server --port=3001
 **Browser doesn't auto-open:**
 - Manually navigate to http://localhost:3000 (or your chosen port)
 
+## 🌐 Live Deployment
+
+### GitHub Pages Deployment
+The app is configured for easy GitHub Pages deployment:
+
+1. **Enable GitHub Pages:**
+   - Go to repository Settings → Pages
+   - Set source to "Deploy from a branch"
+   - Select `main` branch and `/ (root)` folder
+   - Click Save
+
+2. **Access Live App:**
+   - Your app will be available at: `https://jparkypark.github.io/todo-list-app/`
+   - Updates automatically when you push to main branch
+
+### Alternative Hosting
+The app can be deployed to any static hosting service:
+- **Netlify**: Drag and drop the root files
+- **Vercel**: Connect your GitHub repository
+- **Firebase hosting**: Deploy using Firebase CLI
+
 ## Project Structure
 
 ```
@@ -127,12 +148,15 @@ todo-list-app/
 │   ├── prd.md          # Product Requirements Document
 │   └── tasks.md        # Detailed task breakdown
 ├── src/
-│   ├── index.html      # Main HTML file
-│   ├── styles.css      # Stylesheet
-│   └── app.js          # JavaScript application
+│   ├── index.html      # Main HTML file (development)
+│   ├── styles.css      # Stylesheet (development)
+│   └── app.js          # JavaScript application (development)
 ├── tests/              # Test files
 ├── scripts/            # Development scripts
-└── assets/             # Static assets
+├── assets/             # Static assets
+├── index.html          # Main HTML file (production/GitHub Pages)
+├── styles.css          # Stylesheet (production/GitHub Pages)
+└── app.js              # JavaScript application (production/GitHub Pages)
 ```
 
 ## Development Process
