@@ -1,16 +1,32 @@
 /**
  * Todo List App
  * A modern, intuitive todo list application built with vanilla JavaScript
+ * 
+ * Features:
+ * - Add, edit, delete, and toggle todo items
+ * - Filter tasks by status (All/Active/Completed)
+ * - Task counter showing remaining items
+ * - Data persistence using localStorage
+ * - Responsive design with smooth animations
+ * - Full keyboard accessibility
+ * 
+ * @author Josh Parks
+ * @version 1.0.0
+ * @license MIT
  */
 
 class TodoApp {
+    /**
+     * Initialize the Todo App
+     * Sets up data structures, gets DOM elements, and initializes the application
+     */
     constructor() {
-        // Initialize properties
-        this.todos = [];
-        this.currentFilter = 'all';
-        this.nextId = 1;
+        // Application state
+        this.todos = [];                    // Array to store all todo items
+        this.currentFilter = 'all';         // Current filter: 'all', 'active', or 'completed'
+        this.nextId = 1;                    // Auto-incrementing ID for new todos
         
-        // Get DOM elements
+        // DOM element references
         this.todoInput = document.getElementById('todo-input');
         this.addBtn = document.getElementById('add-btn');
         this.todoList = document.getElementById('todo-list');
